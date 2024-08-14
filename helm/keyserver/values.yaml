@@ -1,0 +1,31 @@
+# Default values for keyserver.
+replicaCount: 1
+max_key_size: 1024
+
+service:
+  type: ClusterIP
+  port: 1123
+
+image:
+  repository: docker.dexterity.ai/mtkeyserver
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+nameOverride: ""
+fullnameOverride: ""
+
+resources:
+  limits:
+    cpu: 2000m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 25Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
