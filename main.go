@@ -22,6 +22,7 @@ var (
 
     max_key_size int = 1024
 
+    // Collection of Prometheus counters for response status codes
     statusCodeCounter = promauto.NewCounterVec(
         prometheus.CounterOpts{
             Name: "keyserver_status_codes_count",
@@ -30,9 +31,11 @@ var (
         []string{"status_code"},
     )
 
+    // Prometheus key len histogram
     keyLenHistogram prometheus.Histogram
 )
 
+// Initialize and register key len histogram
 func initKeyHistogram() {
     // Create buckets
     bucketWidth := float64(max_key_size) / float64(NUM_BUCKETS)
@@ -45,6 +48,8 @@ func initKeyHistogram() {
     })
 }
 
+// Handler for GET /key request. Returns a JSON object with request
+// bytes encoded in base64
 func getRandomKey(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "application/json")
 
