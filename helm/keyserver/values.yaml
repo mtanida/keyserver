@@ -7,7 +7,7 @@ service:
   port: 1123
 
 image:
-  repository: docker.dexterity.ai/mtkeyserver
+  repository: keyserver
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
